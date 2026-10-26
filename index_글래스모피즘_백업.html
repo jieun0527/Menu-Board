@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>브릿지 커피 메뉴판</title>
+
+  <style>
+    /* ===== 색상 (기획시트의 대표 색상) =====
+       나중에 색을 바꾸고 싶으면 아래 두 줄의 #번호만 고치세요. */
+    :root {
+      --brown: #4A3728;  /* 짙은 갈색: 배경, 제목 */
+      --cream: #F5EFE6;  /* 크림색: 카드, 본문 */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      /* 글꼴: 고운 돋움 먼저, 없으면 맑은 고딕 */
+      font-family: "Gowun Dodum", "Malgun Gothic", sans-serif;
+      color: var(--brown);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, #7a5a43 0, transparent 45%),
+        radial-gradient(circle at 90% 40%, #6b4d38 0, transparent 40%),
+        var(--brown);
+      background-attachment: fixed;
+      padding: 28px 16px 40px;
+    }
+
+    /* 휴대폰 폭(390px)에 맞춘 가운데 영역 */
+    .wrap { max-width: 390px; margin: 0 auto; }
+
+    /* 반투명 유리 카드 (공통) */
+    .card {
+      background: rgba(245, 239, 230, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      padding: 20px;
+    }
+
+    /* 1. 맨 위: 가게 이름과 한 줄 소개 */
+    header { text-align: center; color: var(--cream); margin-bottom: 22px; }
+    header h1 { font-size: 30px; letter-spacing: 1px; }
+    header p { margin-top: 8px; font-size: 15px; opacity: 0.9; }
+
+    /* 2. 가운데: 메뉴 목록 */
+    .menu-title { color: var(--cream); font-size: 18px; margin: 0 4px 12px; }
+    .menu-item { margin-bottom: 12px; }
+    .menu-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .menu-name { font-size: 18px; font-weight: bold; }
+    .menu-price { font-size: 17px; white-space: nowrap; }
+    .menu-desc { margin-top: 6px; font-size: 14px; opacity: 0.8; line-height: 1.5; }
+
+    /* 3. 맨 아래: 영업시간과 전화 걸기 */
+    footer { margin-top: 22px; }
+    footer h2 { font-size: 17px; margin-bottom: 10px; }
+    .hours { font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
+    .call-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: var(--brown);
+      color: var(--cream);
+      font-size: 17px;
+      padding: 14px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- ===== 1. 맨 위: 가게 이름과 한 줄 소개 =====
+         가게 이름이나 소개를 바꾸려면 아래 글자만 고치세요. -->
+    <header>
+      <h1>브릿지 커피</h1>
+      <p>매일 직접 볶는 스페셜티 커피</p>
+    </header>
+
+    <!-- ===== 2. 가운데: 메뉴 목록 =====
+         메뉴 카드는 아래 JavaScript의 '메뉴목록'에서 자동으로 만들어집니다. -->
+    <main>
+      <h2 class="menu-title">메뉴</h2>
+      <div id="menu-list"></div>
+    </main>
+
+    <!-- ===== 3. 맨 아래: 영업시간과 전화 걸기 =====
+         영업시간을 바꾸려면 아래 글자를 고치세요.
+         전화번호는 버튼의 href="tel:..." 부분(숫자만)과 버튼 글자 두 곳을 같이 고치세요. -->
+    <footer class="card">
+      <h2>영업시간</h2>
+      <div class="hours">
+        평일 08:00 - 21:00<br>
+        주말 10:00 - 20:00<br>
+        목요일 휴무
+      </div>
+      <a class="call-btn" href="tel:0620000000">📞 전화 걸기 (062-000-0000)</a>
+    </footer>
+
+  </div>
+
+  <script>
+    // ===== 메뉴 목록 (여기만 고치면 됩니다!) =====
+    // 메뉴를 바꾸려면: 이름, 가격, 설명 글자만 고치세요.
+    // 메뉴를 늘리려면: { ... }, 한 덩어리를 복사해서 아래에 붙여넣으세요.
+    // 메뉴를 지우려면: { ... }, 한 덩어리를 통째로 지우세요. (쉼표 포함)
+    // 지금 3개는 예시입니다.
+    const 메뉴목록 = [
+      { 이름: "아메리카노", 가격: "4,500원", 설명: "산미가 적은 고소한 원두" },
+      { 이름: "아인슈페너", 가격: "5,800원", 설명: "단맛을 줄인 수제 크림" },
+      { 이름: "치즈케이크", 가격: "6,500원", 설명: "굽지 않은 부드러운 식감" }
+    ];
+
+    // 아래는 메뉴 카드를 화면에 그려주는 부분입니다. 보통은 고치지 않아도 돼요.
+    const 목록칸 = document.getElementById("menu-list");
+    메뉴목록.forEach(function (메뉴) {
+      const 카드 = document.createElement("div");
+      카드.className = "card menu-item";
+      카드.innerHTML =
+        '<div class="menu-top">' +
+          '<span class="menu-name">' + 메뉴.이름 + '</span>' +
+          '<span class="menu-price">' + 메뉴.가격 + '</span>' +
+        '</div>' +
+        '<p class="menu-desc">' + 메뉴.설명 + '</p>';
+      목록칸.appendChild(카드);
+    });
+  </script>
+</body>
+</html>
